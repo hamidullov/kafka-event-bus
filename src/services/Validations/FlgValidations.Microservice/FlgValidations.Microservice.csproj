@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\_shared\Example.Common\Example.Common.csproj" />
+        <ProjectReference Include="..\..\..\_shared\Example.Cqrs\Example.Cqrs.csproj" />
+        <ProjectReference Include="..\..\..\_shared\Example.DDD\Example.DDD.csproj" />
+        <ProjectReference Include="..\..\..\_shared\Example.EventBus.Abstractions\Example.EventBus.Abstractions.csproj" />
+        <ProjectReference Include="..\..\..\_shared\Example.EventBus.Kafka\Example.EventBus.Kafka.csproj" />
+        <ProjectReference Include="..\..\..\_shared\Example.IntegrationEvents\Example.IntegrationEvents.csproj" />
+        <ProjectReference Include="..\..\..\_shared\Example.Logging.Serilog\Example.Logging.Serilog.csproj" />
+        <ProjectReference Include="..\..\..\_shared\Example.Mapper\Example.Mapper.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+</Project>

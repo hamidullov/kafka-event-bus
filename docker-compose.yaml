@@ -1,0 +1,65 @@
+version: "3.7"
+
+
+volumes:
+  database-data:
+    driver: local
+
+services:
+  database:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456    
+    ports:
+      - 5427:5432    
+    volumes:
+      - database-data:/var/lib/postgresql/data
+    restart: always
+
+  zookeeper-internal:
+    image: confluentinc/cp-zookeeper:7.0.1
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka-internal:
+    image: confluentinc/cp-kafka:7.0.1
+    ports:
+      # To learn about configuring Kafka for access across networks see
+      # https://www.confluent.io/blog/kafka-client-cannot-connect-to-broker-on-aws-on-docker-etc/
+      - "9092:9092"
+    depends_on:
+      - zookeeper-internal
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper-internal:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka-internal:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1    
+  
+  kafka-dashboard:
+    image: docker.redpanda.com/vectorized/console:master-0a8fce8
+    environment:
+      KAFKA_BROKERS: kafka-internal:29092
+    ports:
+      - 8080:8080
+        
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.3.2
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      "discovery.type": single-node
+      "xpack.security.enabled": "false"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.3.2
+    ports:
+      - 5601:5601
+    environment:
+      SERVER_NAME: kibana
+      ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
