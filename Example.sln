@@ -52,6 +52,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.dockerignore = .dockerignore
 		.gitignore = .gitignore
 		docker-compose.yaml = docker-compose.yaml
+		create-topics.sh = create-topics.sh
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.IntegrationEvents", "src\_shared\Example.IntegrationEvents\Example.IntegrationEvents.csproj", "{FDB26875-20FC-4466-9218-1FF77F8E6807}"
