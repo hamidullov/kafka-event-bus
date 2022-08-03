@@ -3,5 +3,6 @@
 public enum StudyFailedType
 {
     ValidationFailed = 1,
-    MlResearchFailed = 2
+    MlResearchFailed = 2,
+    SeriesDefineFailed = 3,
 }

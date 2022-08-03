@@ -33,6 +33,7 @@ public class FlgStudyValidateSuccessIntegrationEventHandler
     {
         try
         {
+            //dddd
             await _mediator.Send(new DefineStudySeriesCommand(@event.StudyId));
             var studyWithDefinedSeries = await _mediator.Send(new GetStudyWithDefinedSeriesByIdQuery(@event.StudyId));
             _eventBus.Publish(new FlgStudyDefineSeriesSuccessIntegrationEvent(studyWithDefinedSeries.Id,

@@ -14,7 +14,7 @@ public class StudyStateChangedDomainEventHandler : INotificationHandler<StudySta
     }
 
     public Task Handle(StudyStateChangedDomainEvent notification, CancellationToken cancellationToken)
-    {;
+    {
         var study = notification.Study;
 
         if (study.IsCompletionFailedState())

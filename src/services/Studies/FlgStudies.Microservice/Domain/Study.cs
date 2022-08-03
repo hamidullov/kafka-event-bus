@@ -7,8 +7,7 @@ namespace FlgStudies.Microservice.Domain;
 
 public class Study : TAuditableEntity<Guid>
 {
-    private static readonly StudyState[] CompletionFailedStates =
-        { StudyState.ValidationFailed, StudyState.MlResearchFailed, StudyState.SeriesDefineFailed };
+    private static readonly StudyState[] CompletionFailedStates = { StudyState.ValidationFailed, StudyState.MlResearchFailed, StudyState.SeriesDefineFailed };
 
     protected Study()
     {
@@ -78,6 +77,7 @@ public class Study : TAuditableEntity<Guid>
         {
             StudyState.ValidationFailed => StudyFailedType.ValidationFailed,
             StudyState.MlResearchFailed => StudyFailedType.MlResearchFailed,
+            StudyState.SeriesDefineFailed => StudyFailedType.SeriesDefineFailed,
             _ => throw new DomainException("Исследование не в ошибочном состоянии")
         };
     }
